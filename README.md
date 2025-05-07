@@ -49,6 +49,86 @@ A full stack web application that enables employees to log in, track their worki
 
 ```
 employee-shift-tracker/
+├── backend/           # Node.js Express API
+│   ├── controllers/   # Request handlers
+│   ├── middleware/    # Auth middleware
+│   ├── models/        # MongoDB schemas
+│   ├── routes/        # API routes
+│   ├── utils/         # Helper functions
+│   └── server.js      # Entry point
+│
+├── frontend/          # React application
+    ├── public/        # Static files
+    └── src/           # React source code
+        ├── components/# React components
+        ├── context/   # Context API providers
+        ├── pages/     # Page components
+        └── utils/     # Helper functions
+```
+
+## Deployment Instructions
+
+The application has been configured for easy deployment to Vercel (frontend) and Render (backend).
+
+### Frontend Deployment to Vercel
+
+1. Create a Vercel account at [vercel.com](https://vercel.com)
+2. Install the Vercel CLI: `npm install -g vercel`
+3. Navigate to the frontend directory: `cd frontend`
+4. Run `vercel login` and follow the prompts
+5. Deploy with: `vercel`
+6. For production deployment: `vercel --prod`
+
+You can also connect your GitHub repository directly to Vercel for automatic deployments.
+
+### Backend Deployment to Render
+
+1. Create a Render account at [render.com](https://render.com)
+2. Create a new Web Service
+3. Connect your GitHub repository
+4. Use the following settings:
+   - **Name**: employee-shift-tracker-api
+   - **Environment**: Node
+   - **Build Command**: `npm install`
+   - **Start Command**: `npm start`
+5. Add the following environment variables:
+   - `NODE_ENV`: production
+   - `MONGO_URI`: your MongoDB connection string
+   - `JWT_SECRET`: your secret key
+   - `JWT_EXPIRE`: 30d
+   - `JWT_COOKIE_EXPIRE`: 30
+   - `EMAIL_HOST`: your SMTP server
+   - `EMAIL_PORT`: your SMTP port
+   - `EMAIL_USER`: your email username
+   - `EMAIL_PASS`: your email password
+   - `EMAIL_FROM`: sender email address
+
+### Connecting Frontend to Backend
+
+After deploying both services:
+
+1. Get your backend API URL from Render (e.g., https://employee-shift-tracker-api.onrender.com)
+2. Update the file `frontend/.env.production` with:
+   ```
+   REACT_APP_API_URL=https://your-backend-url.onrender.com/api
+   ```
+3. Redeploy the frontend to apply the changes
+
+### MongoDB Atlas Setup
+
+1. Create a MongoDB Atlas account at [mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas)
+2. Create a new cluster
+3. Set up a database user and password
+4. Whitelist all IP addresses (0.0.0.0/0) for development
+5. Get your connection string and replace `<username>`, `<password>`, and `<dbname>` with your credentials
+6. Use this connection string as your `MONGO_URI` environment variable
+
+## Live Demo
+
+Access the live demo of the application:
+
+- **Frontend**: [https://employee-shift-tracker.vercel.app](https://employee-shift-tracker.vercel.app)
+- **Backend API**: [https://employee-shift-tracker-api.onrender.com](https://employee-shift-tracker-api.onrender.com)
 │
 ├── backend/                 # Backend Node.js/Express API
 │   ├── config/              # Configuration settings

@@ -38,15 +38,30 @@ const AdminPanel = () => {
   }, []);
 
   useEffect(() => {
-    if (shiftHistory) {
-      setFilteredShifts(
-        shiftHistory.filter(
-          (shift) => 
-            shift.employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            shift.employee.email.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      );
+    if (!shiftHistory) {
+      setFilteredShifts([]);
+      return;
     }
+    
+    if (!searchTerm) {
+      setFilteredShifts(shiftHistory);
+      return;
+    }
+    
+    const searchTermLower = searchTerm.toLowerCase();
+    
+    setFilteredShifts(
+      shiftHistory.filter((shift) => {
+        // Check if shift.employee exists and has necessary properties
+        if (!shift || !shift.employee) return false;
+        
+        const employeeName = shift.employee.name || '';
+        const employeeEmail = shift.employee.email || '';
+        
+        return employeeName.toLowerCase().includes(searchTermLower) ||
+               employeeEmail.toLowerCase().includes(searchTermLower);
+      })
+    );
   }, [shiftHistory, searchTerm]);
 
   const handleChangePage = (event, newPage) => {

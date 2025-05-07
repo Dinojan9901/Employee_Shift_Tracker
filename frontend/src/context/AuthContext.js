@@ -1,5 +1,6 @@
 import { createContext, useReducer, useEffect } from 'react';
 import axios from 'axios';
+import apiConfig from '../utils/apiConfig';
 
 // Initial state
 const initialState = {
@@ -70,7 +71,7 @@ export const AuthProvider = ({ children }) => {
         setAuthToken(token);
         try {
           // Make request to backend to validate token and get user data
-          const res = await axios.get('http://localhost:5000/api/auth/me');
+          const res = await axios.get(`${apiConfig.baseUrl}/auth/me`);
           // If successful, update the state with user data
           if (res.data.success) {
             dispatch({ type: 'USER_LOADED', payload: res.data.data });
@@ -108,7 +109,7 @@ export const AuthProvider = ({ children }) => {
       delete axios.defaults.headers.common['Authorization'];
       
       // Make the registration request
-      const res = await axios.post('http://localhost:5000/api/auth/register', formData);
+      const res = await axios.post(`${apiConfig.baseUrl}/auth/register`, formData);
       
       if (res.data.success && res.data.token) {
         // Store token in localStorage
@@ -117,7 +118,7 @@ export const AuthProvider = ({ children }) => {
         setAuthToken(res.data.token);
         
         // Get user data after successful registration
-        const userRes = await axios.get('http://localhost:5000/api/auth/me');
+        const userRes = await axios.get(`${apiConfig.baseUrl}/auth/me`);
         
         dispatch({
           type: 'REGISTER_SUCCESS',
@@ -142,7 +143,7 @@ export const AuthProvider = ({ children }) => {
       delete axios.defaults.headers.common['Authorization'];
       
       // Make the login request
-      const res = await axios.post('http://localhost:5000/api/auth/login', formData);
+      const res = await axios.post(`${apiConfig.baseUrl}/auth/login`, formData);
       
       if (res.data.success && res.data.token) {
         // Store token in localStorage
@@ -151,7 +152,7 @@ export const AuthProvider = ({ children }) => {
         setAuthToken(res.data.token);
         
         // Get user data after successful login
-        const userRes = await axios.get('http://localhost:5000/api/auth/me');
+        const userRes = await axios.get(`${apiConfig.baseUrl}/auth/me`);
         
         dispatch({
           type: 'LOGIN_SUCCESS',

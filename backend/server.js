@@ -12,6 +12,7 @@ connectDB();
 // Route files
 const auth = require('./routes/auth');
 const shifts = require('./routes/shifts');
+const email = require('./routes/email');
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(cors());
 // Mount routers
 app.use('/api/auth', auth);
 app.use('/api/shifts', shifts);
+app.use('/api/email', email);
 
 // Basic route
 app.get('/', (req, res) => {

@@ -7,7 +7,7 @@ const {
   getCurrentShift,
   getShifts,
   getAllShifts,
-} = require('../controllers/shifts');
+} = require('../controllers/shifts-updated');
 const { protect, authorize } = require('../middleware/auth');
 
 const router = express.Router();

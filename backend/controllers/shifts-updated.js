@@ -1,7 +1,6 @@
 const Shift = require('../models/Shift');
 const User = require('../models/User');
-const { sendShiftCompletionEmail } = require('../utils/emailService');
-const { sendShiftCompleteEmail } = require('./email');
+const { triggerShiftCompletionEmail } = require('../utils/emailTriggers');
 
 // @desc    Start a new shift
 // @route   POST /api/shifts/start
@@ -96,6 +95,14 @@ exports.endShift = async (req, res) => {
     };
 
     await shift.save();
+    
+    // Send email notification for shift completion
+    try {
+      await triggerShiftCompletionEmail(req.user.id, shift);
+    } catch (emailError) {
+      console.error('Error triggering shift completion email:', emailError);
+      // We continue the process even if email fails
+    }
 
     res.status(200).json({
       success: true,

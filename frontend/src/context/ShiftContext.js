@@ -1,5 +1,6 @@
 import { createContext, useReducer } from 'react';
 import axios from 'axios';
+import apiConfig from '../utils/apiConfig';
 
 // Initial state
 const initialState = {
@@ -75,7 +76,7 @@ export const ShiftProvider = ({ children }) => {
   const startShift = async (locationData) => {
     try {
       dispatch({ type: 'SET_LOADING' });
-      const res = await axios.post('http://localhost:5000/api/shifts/start', locationData);
+      const res = await axios.post(`${apiConfig.baseUrl}/shifts/start`, locationData);
       dispatch({ type: 'SHIFT_STARTED', payload: res.data.data });
     } catch (err) {
       dispatch({ 
@@ -89,7 +90,7 @@ export const ShiftProvider = ({ children }) => {
   const endShift = async (locationData) => {
     try {
       dispatch({ type: 'SET_LOADING' });
-      const res = await axios.put('http://localhost:5000/api/shifts/end', locationData);
+      const res = await axios.put(`${apiConfig.baseUrl}/shifts/end`, locationData);
       dispatch({ type: 'SHIFT_ENDED', payload: res.data.data });
     } catch (err) {
       dispatch({ 
@@ -103,7 +104,7 @@ export const ShiftProvider = ({ children }) => {
   const startBreak = async (breakData) => {
     try {
       dispatch({ type: 'SET_LOADING' });
-      const res = await axios.put('http://localhost:5000/api/shifts/break/start', breakData);
+      const res = await axios.put(`${apiConfig.baseUrl}/shifts/break/start`, breakData);
       dispatch({ type: 'BREAK_STARTED', payload: res.data.data });
     } catch (err) {
       dispatch({ 
@@ -117,7 +118,7 @@ export const ShiftProvider = ({ children }) => {
   const endBreak = async (locationData) => {
     try {
       dispatch({ type: 'SET_LOADING' });
-      const res = await axios.put('http://localhost:5000/api/shifts/break/end', locationData);
+      const res = await axios.put(`${apiConfig.baseUrl}/shifts/break/end`, locationData);
       dispatch({ type: 'BREAK_ENDED', payload: res.data.data });
     } catch (err) {
       dispatch({ 
@@ -131,7 +132,7 @@ export const ShiftProvider = ({ children }) => {
   const getCurrentShift = async () => {
     try {
       dispatch({ type: 'SET_LOADING' });
-      const res = await axios.get('http://localhost:5000/api/shifts/current');
+      const res = await axios.get(`${apiConfig.baseUrl}/shifts/current`);
       dispatch({ type: 'GET_CURRENT_SHIFT', payload: res.data.data });
     } catch (err) {
       // If no active shift, set currentShift to null but don't show error
@@ -150,7 +151,7 @@ export const ShiftProvider = ({ children }) => {
   const getShiftHistory = async () => {
     try {
       dispatch({ type: 'SET_LOADING' });
-      const res = await axios.get('http://localhost:5000/api/shifts');
+      const res = await axios.get(`${apiConfig.baseUrl}/shifts`);
       dispatch({ type: 'GET_SHIFT_HISTORY', payload: res.data.data });
     } catch (err) {
       dispatch({ 
@@ -164,7 +165,7 @@ export const ShiftProvider = ({ children }) => {
   const getAllShifts = async () => {
     try {
       dispatch({ type: 'SET_LOADING' });
-      const res = await axios.get('http://localhost:5000/api/shifts/all');
+      const res = await axios.get(`${apiConfig.baseUrl}/shifts/all`);
       dispatch({ type: 'GET_SHIFT_HISTORY', payload: res.data.data });
     } catch (err) {
       dispatch({ 

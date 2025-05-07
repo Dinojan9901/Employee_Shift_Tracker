@@ -9,7 +9,11 @@ import {
   Container, 
   Paper, 
   Alert,
-  CircularProgress
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem
 } from '@mui/material';
 
 const Register = () => {
@@ -17,7 +21,8 @@ const Register = () => {
     name: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    role: 'employee'
   });
   const [showError, setShowError] = useState(false);
   const [passwordError, setPasswordError] = useState('');
@@ -40,7 +45,7 @@ const Register = () => {
     }
   }, [isAuthenticated, error, navigate, clearError]);
 
-  const { name, email, password, confirmPassword } = formData;
+  const { name, email, password, confirmPassword, role } = formData;
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -64,7 +69,7 @@ const Register = () => {
       return;
     }
     
-    register({ name, email, password });
+    register({ name, email, password, role });
   };
 
   return (
@@ -142,6 +147,20 @@ const Register = () => {
             onChange={onChange}
             error={!!passwordError}
           />
+          <FormControl fullWidth margin="normal">
+            <InputLabel id="role-label">Role</InputLabel>
+            <Select
+              labelId="role-label"
+              id="role"
+              name="role"
+              value={role}
+              label="Role"
+              onChange={onChange}
+            >
+              <MenuItem value="employee">Employee</MenuItem>
+              <MenuItem value="admin">Administrator</MenuItem>
+            </Select>
+          </FormControl>
           <Button
             type="submit"
             fullWidth
