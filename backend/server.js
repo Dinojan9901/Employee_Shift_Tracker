@@ -19,13 +19,15 @@ const app = express();
 // Body parser
 app.use(express.json());
 
-// Enable CORS with specific options for production
+// Enable CORS with specific options for production and development
 app.use(cors({
   origin: [
-    'https://employeeshift.vercel.app', // Replace with your actual frontend URL
-    'https://employee-shift-tracker.vercel.app',
-    // Allow local development
-    'https://employeeshift.onrender.com'
+    // Render deployed frontend
+    'https://employeeshift.onrender.com',
+    // Local development
+    'http://localhost:3000',
+    // Self-reference for API-to-API calls
+    'https://employee-shift-tracker.onrender.com'
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true

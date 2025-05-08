@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import apiConfig from './utils/apiConfig';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline, Box, CircularProgress } from '@mui/material';
@@ -38,7 +39,7 @@ const ProtectedRoute = ({ children, requireAdmin }) => {
         // Set auth token in headers
         const token = storedToken;
         if (token) {
-          fetch('https://employee-shift-tracker.onrender.com/api/auth/me', {
+          fetch(`${apiConfig.baseUrl}/auth/me`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },

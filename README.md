@@ -68,18 +68,21 @@ employee-shift-tracker/
 
 ## Deployment Instructions
 
-The application has been configured for easy deployment to Vercel (frontend) and Render (backend).
+The application has been configured for easy deployment to Render for both frontend and backend.
 
-### Frontend Deployment to Vercel
+### Frontend Deployment to Render
 
-1. Create a Vercel account at [vercel.com](https://vercel.com)
-2. Install the Vercel CLI: `npm install -g vercel`
-3. Navigate to the frontend directory: `cd frontend`
-4. Run `vercel login` and follow the prompts
-5. Deploy with: `vercel`
-6. For production deployment: `vercel --prod`
+1. Create a Render account at [render.com](https://render.com)
+2. Create a new Static Site
+3. Connect your GitHub repository
+4. Use the following settings:
+   - **Name**: employeeshift
+   - **Build Command**: `cd frontend && npm install && npm run build`
+   - **Publish Directory**: `frontend/build`
+5. Add the environment variables from your `.env.production` file
+6. Click "Create Static Site"
 
-You can also connect your GitHub repository directly to Vercel for automatic deployments.
+This will deploy your frontend to a URL like `https://employeeshift.onrender.com`.
 
 ### Backend Deployment to Render
 
@@ -107,12 +110,14 @@ You can also connect your GitHub repository directly to Vercel for automatic dep
 
 After deploying both services:
 
-1. Get your backend API URL from Render (e.g., https://employee-shift-tracker-api.onrender.com)
+1. Get your backend API URL from Render (e.g., https://employee-shift-tracker.onrender.com)
 2. Update the file `frontend/.env.production` with:
    ```
-   REACT_APP_API_URL=https://your-backend-url.onrender.com/api
+   REACT_APP_API_URL=https://employee-shift-tracker.onrender.com/api
+   REACT_APP_USE_LOCAL_API=false
    ```
-3. Redeploy the frontend to apply the changes
+3. Add these environment variables to your Render static site settings
+4. Redeploy the frontend to apply the changes
 
 ### MongoDB Atlas Setup
 
@@ -127,8 +132,8 @@ After deploying both services:
 
 Access the live demo of the application:
 
-- **Frontend**: [https://employee-shift-tracker.vercel.app](https://employee-shift-tracker.vercel.app)
-- **Backend API**: [https://employee-shift-tracker-api.onrender.com](https://employee-shift-tracker-api.onrender.com)
+- **Frontend**: [https://employeeshift.onrender.com](https://employeeshift.onrender.com)
+- **Backend API**: [https://employee-shift-tracker.onrender.com](https://employee-shift-tracker.onrender.com)
 │
 ├── backend/                 # Backend Node.js/Express API
 │   ├── config/              # Configuration settings
