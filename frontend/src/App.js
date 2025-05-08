@@ -38,7 +38,7 @@ const ProtectedRoute = ({ children, requireAdmin }) => {
         // Set auth token in headers
         const token = storedToken;
         if (token) {
-          fetch('http://localhost:5000/api/auth/me', {
+          fetch('https://employee-shift-tracker.onrender.com/api/auth/me', {
             headers: {
               Authorization: `Bearer ${token}`,
             },

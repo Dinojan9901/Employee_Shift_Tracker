@@ -5,8 +5,8 @@ const getApiBaseUrl = () => {
     return process.env.REACT_APP_API_URL || 'https://employee-shift-tracker-api.onrender.com/api';
   }
   
-  // For development, use localhost
-  return 'http://localhost:5000/api';
+  // For development, also use the deployed API to maintain consistency
+  return 'https://employee-shift-tracker.onrender.com/api';
 };
 
 const apiConfig = {
